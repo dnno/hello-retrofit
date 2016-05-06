@@ -1,36 +1,14 @@
 package de.rpr.helloretrofit;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
 import org.junit.Test;
-import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class JacksonRetrofitTests {
-
-
-    private Call<List<Repo>> call;
-
-    @Before
-    public void setup() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com")
-                .addConverterFactory(JacksonConverterFactory.create(mapper))
-                .build();
-        JacksonGithubEndpoint endpoint = retrofit.create(JacksonGithubEndpoint.class);
-        call = endpoint.listRepos("dnno");
-    }
+public class JacksonRetrofitTests extends AbstractJacksonRetrofitTest{
 
     @Test
     public void should_get_successful_response_status() throws IOException {

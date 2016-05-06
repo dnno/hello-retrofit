@@ -12,9 +12,13 @@ public abstract class AbstractOkHttpRetrofitTest {
     @Before
     public void setup() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com")
+                .baseUrl(getBaseUri())
                 .build();
-        OkHttpGithubEndpoint endpoint = retrofit.create(OkHttpGithubEndpoint.class);
-        call = endpoint.listRepos("dnno");
+        OkHttpGithubService service = retrofit.create(OkHttpGithubService.class);
+        call = service.listRepos("dnno");
+    }
+
+    protected String getBaseUri() {
+        return "https://api.github.com";
     }
 }

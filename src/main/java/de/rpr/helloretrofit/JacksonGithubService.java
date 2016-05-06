@@ -6,7 +6,7 @@ import retrofit2.http.Path;
 
 import java.util.List;
 
-public interface JacksonGithubEndpoint {
+public interface JacksonGithubService {
 
     @GET("users/{user}/repos")
     Call<List<Repo>> listRepos(@Path("user") String username);
